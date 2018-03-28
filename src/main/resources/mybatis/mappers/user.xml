@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+		INSERT INTO `user`
+		       VALUES(#{id}, #{name}, PASSWORD(#{password}), now())
+		]]>
+	</insert>
+	
+	<select id="selectById"
+			parameterType="String"
+			resultType="uservo">
+	    <![CDATA[
+		SELECT id
+		  FROM user
+		 WHERE id=#{id}
+		]]>
+	</select>
+
+	<select id="selectByIdAndPassword"
+	        parameterType="uservo"
+	        resultType="uservo">
+	    <![CDATA[
+		SELECT id, name
+		  FROM user
+		 WHERE id=#{id}
+		   AND password=PASSWORD(#{password})
+		]]>
+	</select>
+</mapper>
