@@ -30,6 +30,8 @@ public class GlobalExceptionHandler {
 	LOG.error(e.getMessage());
 //	LOG.warn(errors.toString());
 
+	e.printStackTrace();
+	
 	String accept = request.getHeader( "accept" );
 	if ( accept.matches( ".*application/json.*" ) ) {
 	    // 실패 JSON 응답

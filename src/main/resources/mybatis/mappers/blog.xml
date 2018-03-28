@@ -18,4 +18,24 @@
 		 WHERE user_id=#{id}
 		]]>
 	</select>
+	
+	<update id="update"
+			parameterType="blogvo">
+		<choose>
+			<when test='imagePath == ""'>
+				<![CDATA[
+				UPDATE blog
+				   SET title=#{title}
+				 WHERE user_id=#{userId}
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				UPDATE blog
+				   SET title=#{title}, image = #{imagePath}
+				 WHERE user_id=#{userId}
+				]]>
+			</otherwise>
+		</choose>
+	</update>
 </mapper>

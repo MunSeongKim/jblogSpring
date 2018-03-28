@@ -4,8 +4,8 @@
 <mapper namespace="post">
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
-		INSERT INTO category
-		       VALUES(null, #{name}, #{description}, 0, now(), #{userId})
+		INSERT INTO post
+		       VALUES(null, #{categoryNo}, #{title}, #{body}, now())
 		]]>
 	</insert>
 	

@@ -16,7 +16,7 @@ import com.cafe24.jblog.vo.CategoryVO;
 import com.cafe24.jblog.vo.PostVO;
 
 @Controller
-@RequestMapping( "/blog" )
+@RequestMapping( "/{uid:(?!assets|logo).*}" )
 public class BlogController {
     @Autowired
     private BlogService blogService;
@@ -25,7 +25,7 @@ public class BlogController {
     @Autowired
     private PostService postService;
     
-    @RequestMapping( "/{uid}" )
+    @RequestMapping( {"", "/"} )
     public String main( @PathVariable( "uid" ) String userId, Model model ) {
 	BlogVO blogVo = blogService.getBlogInfo( userId );
 	List<CategoryVO> categories = categoryService.getAllCategories( userId );

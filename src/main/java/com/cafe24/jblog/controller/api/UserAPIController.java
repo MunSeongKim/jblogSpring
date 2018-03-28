@@ -11,7 +11,7 @@ import com.cafe24.jblog.service.UserService;
 
 @Controller( "UserAPIController" )
 @RequestMapping( "/api/user" )
-public class UserController {
+public class UserAPIController {
     @Autowired
     private UserService userService;
 

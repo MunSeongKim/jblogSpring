@@ -6,9 +6,8 @@
 <div id="navigation">
 	<h2>카테고리</h2>
 	<ul>
-		<c:set var='size' value="${fn:length(categories)}" />
 		<c:forEach items="${ categories }" var="category" varStatus="status">
-			<li><a href="${pageContext.servletContext.contextPath }/blog/${blog.userId }/${category.no}">${category.name }</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/${blog.userId }/${category.no}">${category.name }</a></li>
 		</c:forEach>
 	</ul>
 </div>

@@ -12,8 +12,18 @@ import com.cafe24.jblog.vo.CategoryVO;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
-    
-    public List<CategoryVO> getAllCategories(String id){
-	return categoryRepository.readAll(id);
+
+    public List<CategoryVO> getAllCategories( String id ) {
+	return categoryRepository.readAll( id );
+    }
+
+    public CategoryVO addition( CategoryVO vo ) {
+	CategoryVO result = categoryRepository.create( vo );
+	result = categoryRepository.read( vo );
+	return result;
+    }
+
+    public boolean remove( CategoryVO vo ) {
+	return categoryRepository.delete(vo);
     }
 }

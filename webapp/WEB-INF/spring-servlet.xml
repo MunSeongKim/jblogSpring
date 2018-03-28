@@ -37,6 +37,9 @@
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
+	<!-- resource mapping -->
+	<mvc:resources location="file:/blog-uploads/" mapping="/logo/images/**" />
+
 	<!-- Interceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -52,15 +55,13 @@
 			<mvc:exclude-mapping path="/user/login/auth" />
 			<mvc:exclude-mapping path="/user/logout" />
 			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/logo/images/**" />
 			<bean class="com.cafe24.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
-
-	<!-- resource mapping -->
-	<mvc:resources location="file:/blog-uploads/" mapping="/logo/images/**" />
 
 	<!-- annotation 기반의 Bean 설정 -->
 	<context:annotation-config />

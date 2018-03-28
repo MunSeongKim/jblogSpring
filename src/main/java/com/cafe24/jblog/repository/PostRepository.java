@@ -12,12 +12,12 @@ import com.cafe24.jblog.vo.PostVO;
 public class PostRepository {
     @Autowired
     private SqlSession sqlSession;
-    
-    public boolean create() {
-	return false;
+
+    public boolean create( PostVO vo ) {
+	return (sqlSession.insert( "post.insert", vo ) == 1);
     }
-    
-    public List<PostVO> readAll(String id){
-	return sqlSession.selectList("post.selectAllById", id);
+
+    public List<PostVO> readAll( String id ) {
+	return sqlSession.selectList( "post.selectAllById", id );
     }
 }

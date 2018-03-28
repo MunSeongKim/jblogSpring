@@ -1,10 +1,13 @@
 package com.cafe24.security;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cafe24.jblog.vo.UserVO;
@@ -47,14 +50,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	// 인증되었을 경우, 권한 체크
-	// URL Parsing
 	if( authClass.role() == Role.ADMIN ){
-	    String requestUrl = request.getRequestURI();
-	    String blogId = requestUrl.substring(requestUrl.lastIndexOf("/")+1, requestUrl.length());
-	    System.out.println( blogId );
+	    //--- The way to get from URL path(Using PathVariable)
+	    Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+	    String blogId = (String)pathVariables.get( "uid" );
+	    //--- The way to parse to url
+	    // String requestUrl = request.getRequestURI();
+	    // String blogId = requestUrl.substring(requestUrl.lastIndexOf("/")+1, requestUrl.length());
 	    if( !blogId.equals(authUser.getId()) ){
 		System.out.println( authUser.getId() );
-		response.sendRedirect( request.getContextPath() + "/blog/" + blogId);
+		response.sendRedirect( request.getContextPath() + "/" + blogId);
 		return false;
 	    }
 	}

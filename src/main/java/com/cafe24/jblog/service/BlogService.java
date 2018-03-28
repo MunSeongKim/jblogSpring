@@ -10,8 +10,12 @@ import com.cafe24.jblog.vo.BlogVO;
 public class BlogService {
     @Autowired
     private BlogRepository blogRepository;
-    
-    public BlogVO getBlogInfo(String id){
+
+    public BlogVO getBlogInfo( String id ) {
 	return blogRepository.read( id );
+    }
+
+    public void modifyBlog( BlogVO vo ) {
+	blogRepository.update( vo );
     }
 }

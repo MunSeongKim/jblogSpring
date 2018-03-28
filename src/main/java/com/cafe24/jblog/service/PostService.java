@@ -17,4 +17,8 @@ public class PostService {
 	return postRepository.readAll( id );
     }
     
+    public void writePost(PostVO vo) {
+	postRepository.create(vo);
+    }
+    
 }

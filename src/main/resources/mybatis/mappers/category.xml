@@ -7,6 +7,11 @@
 		INSERT INTO category
 		       VALUES(null, #{name}, #{description}, 0, now(), #{userId})
 		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+				SELECT LAST_INSERT_ID()
+			]]>
+		</selectKey>
 	</insert>
 	
 	<select id="selectAllById"
@@ -23,5 +28,31 @@
 		 WHERE user_id = #{id}
 		]]>		
 	</select>
+	
+	<select id="selectByNo"
+			parameterType="categoryvo"
+			resultType="categoryvo">
+		<![CDATA[
+		SELECT no,
+			   name,
+			   description,
+			   post_count as postCount,
+			   DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i:%s') as regDate,
+			   user_id as userId
+		  FROM category
+		 WHERE user_id = #{userId}
+		   AND no = #{no}
+		]]>		
+	</select>
+	
+	<delete id="deleteByNo"
+			parameterType="categoryvo">
+		<![CDATA[
+		DELETE
+		  FROM category
+		 WHERE user_id = #{userId}
+		   AND no = #{no}
+		]]>		
+	</delete>
 			
 </mapper>

@@ -39,7 +39,6 @@ $(function() {
 			error: function( e, status, xhr ) {
 				console.error("[" + status + "] " + e);
 			}
-			
 		});
 	});
 	
@@ -64,8 +63,10 @@ $(function() {
 		
 		if( $('#img-checkid').css("display") == "none" ){
 			alert("ID 중복체크를 해주세요.");	
-			return false;s
+			return false;
 		}
+		
+		return true;
 	});
 });
 </script>

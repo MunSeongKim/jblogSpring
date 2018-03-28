@@ -17,21 +17,22 @@
 				<c:import url="/WEB-INF/views/includes/blog/admin/menu.jsp">
 					<c:param name="menu" value="write" />
 				</c:import>
-				<form action="" method="post">
+				<form action="${pageContext.servletContext.contextPath }/${blog.userId}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
-			      			<td>
-			      				<input type="text" size="60" name="title">
-				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+			      			<td class="b">
+			      				<select name="categoryNo">
+			      				<c:forEach items="${ categories }" var="category" varStatus="status">
+				      				<option value="${category.no }">${category.name }</option>
+								</c:forEach>
 				      			</select>
+			      				<input type="text" size="60" name="title">
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="body"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>
@@ -41,11 +42,7 @@
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/blog/footer.jsp" />
 	</div>
 </body>
 </html>

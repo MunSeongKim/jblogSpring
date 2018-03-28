@@ -17,23 +17,23 @@
 				<c:import url="/WEB-INF/views/includes/blog/admin/menu.jsp">
 					<c:param name="menu" value="basic" />
 				</c:import>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath }/${blog.userId}/admin/basic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title"></td>
+			      			<td><input type="text" size="40" name="title" value="${blog.title }"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blog.imagePath}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
+			      			<td><input type="file" name="logo-image"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td class="s"><input type="submit" value="기본설정 변경"></td>      			
+			      			<td class="s"><input type="submit" value="변경사항 저장"></td>      			
 			      		</tr>           		
 			      	</table>
 				</form>

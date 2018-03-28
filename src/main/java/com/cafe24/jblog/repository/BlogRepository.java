@@ -18,4 +18,8 @@ public class BlogRepository {
     public BlogVO read( String id ) {
 	return sqlSession.selectOne( "blog.selectById", id );
     }
+
+    public boolean update( BlogVO vo ) {
+	return (sqlSession.update( "blog.update", vo ) == 1);
+    }
 }
