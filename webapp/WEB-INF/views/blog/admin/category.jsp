@@ -28,15 +28,43 @@ $(function() {
 					var category = response.data;
 					var lastRow = $('.admin-cat tr:last')
 					var index = $('.admin-cat tr').size();
-					lastRow.after(
-							 + "<tr>"
+					lastRow.after("<tr>"
 							 + "<td>" + index + "</td>"
 							 + "<td>" + category.name + "</td>"
 							 + "<td>" + category.postCount + "</td>"
 							 + "<td>" + category.description + "</td>"
-							 + "<td><img id='" + category.no + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg' /></td>"
-							 + "</tr>"
-						 );
+							 + "<td><img class='btn-delete' id='" + category.no + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg' /></td>"
+							 + "</tr>" );
+					$('.admin-cat tr').on('click', '#'+category.no, function() {
+						var categoryNo = $(this).attr("id");
+						var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
+						var removeTarget = $(event.target).parent().parent();
+
+						$.ajax({
+							url: '${ pageContext.servletContext.contextPath }/${blog.userId}/api/blog/category',
+							type: 'DELETE',
+							data: category,
+							contentType: 'application/json; charset=utf-8',
+							dataType: 'json',
+							success: function( response, status, xhr ) {
+								console.log(response);
+								if( response.result == "success" ){
+									// Remove in category table
+									removeTarget.remove();
+									var rows = $('.admin-cat tr')
+									for(var i = 1; i < rows.size(); i++){
+										$(rows[i]).children().first().text(i);		
+									}
+									return ;
+								}
+								
+								console.log("[" + response.result + "]: " + response.message);
+							},
+							error: function( e, status, xhr ) {
+								console.error("[" + status + "] " + e);
+							}
+						});
+					});
 					$('#category-name').val("");
 					$('#category-desc').val("");
 					return ;
@@ -54,6 +82,7 @@ $(function() {
 		var categoryNo = $(this).attr("id");
 		var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
 		var removeTarget = $(event.target).parent().parent();
+
 		$.ajax({
 			url: '${ pageContext.servletContext.contextPath }/${blog.userId}/api/blog/category',
 			type: 'DELETE',
@@ -61,6 +90,7 @@ $(function() {
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			success: function( response, status, xhr ) {
+				console.log(response);
 				if( response.result == "success" ){
 					// Remove in category table
 					removeTarget.remove();
@@ -71,17 +101,17 @@ $(function() {
 					return ;
 				}
 				
-				console.error("[" + response.result + "]: " + response.message);
+				console.log("[" + response.result + "]: " + response.message);
 			},
 			error: function( e, status, xhr ) {
 				console.error("[" + status + "] " + e);
 			}
 		});
-		
-		
-		
 	});
+	
 });
+
+
 </script>
 </head>
 <body>

@@ -14,7 +14,7 @@ import com.cafe24.security.Auth;
 import com.cafe24.security.Auth.Role;
 
 @Controller( "BlogAPIController" )
-@RequestMapping( "/{uid:(?!assets|logo).*}/api/blog" )
+@RequestMapping( "/{bid:(?!assets|logo).*}/api/blog" )
 @Auth( role = Role.ADMIN )
 public class BlogAdminAPIController {
     @Autowired

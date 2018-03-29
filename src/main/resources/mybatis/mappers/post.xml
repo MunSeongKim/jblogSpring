@@ -10,15 +10,119 @@
 	</insert>
 	
 	<select id="selectAllById"
-			parameterType="String"
+			parameterType="map"
 			resultType="postvo">
 		<![CDATA[
-		SELECT no, category_no as categoryNo, title, body, reg_date as regDate
+		SELECT no,
+			   category_no as categoryNo,
+			   title,
+			   body,
+			   DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
 		  FROM post
 		 WHERE category_no IN (SELECT no
 								 FROM category
 								WHERE user_id = #{id})
+		ORDER BY no DESC
+		   LIMIT #{start}, #{count}
 		]]>		
+	</select>
+	
+	<select id="selectAllByCategory"
+			parameterType="map"
+			resultType="postvo">
+		<![CDATA[
+		SELECT no,
+			   category_no as categoryNo,
+			   title,
+			   body,
+			   DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+		  FROM post
+		 WHERE category_no = #{no}
+		ORDER BY no DESC
+		   LIMIT #{start}, #{count}
+		]]>		
+	</select>
+	
+	<select id="selectAtLast"
+			parameterType="String"
+			resultType="postvo">
+		<![CDATA[
+		  SELECT no,
+			     category_no as categoryNo,
+			     title,
+			     body,
+			     DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+		    FROM post
+		   WHERE category_no IN (SELECT no
+			  					   FROM category
+								  WHERE user_id = #{id})
+		ORDER BY no DESC
+		   LIMIT 1;
+		]]>
+	</select>
+	
+	<select id="selectAtAll"
+			parameterType="map"
+			resultType="postvo">
+		<![CDATA[
+		  SELECT no,
+			     category_no as categoryNo,
+			     title,
+			     body,
+			     DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+		    FROM post
+		   WHERE category_no IN (SELECT no
+			  					   FROM category
+								  WHERE user_id = #{userId})
+			 AND no = #{postNo}
+		]]>
+	</select>
+	
+	<select id="selectAtLastByCategory"
+			parameterType="map"
+			resultType="postvo">
+		<![CDATA[
+		  SELECT no,
+			     category_no as categoryNo,
+			     title,
+			     body,
+			     DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+		    FROM post
+		   WHERE category_no = #{categoryNo}
+		ORDER BY no DESC
+		   LIMIT 1
+		]]>
+	</select>
+	
+	<select id="selectAtAllByCategory"
+			parameterType="map"
+			resultType="postvo">
+		<![CDATA[
+		  SELECT no,
+			     category_no as categoryNo,
+			     title,
+			     body,
+			     DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+		    FROM post
+		   WHERE post.category_no = #{categoryNo}
+			 AND no = #{postNo}
+		]]>
+	</select>
+	
+	<select id="selectCount"
+			parameterType="map"
+			resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			  FROM post, category
+			 WHERE post.category_no = category.no
+			   AND category.user_id = #{userId}
+		]]>
+		<if test='categoryNo != null'>
+			<![CDATA[
+				AND category.no = #{categoryNo}
+			]]>
+		</if>
 	</select>
 			
 </mapper>

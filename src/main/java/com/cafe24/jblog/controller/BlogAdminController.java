@@ -23,7 +23,7 @@ import com.cafe24.security.Auth;
 import com.cafe24.security.Auth.Role;
 
 @Controller
-@RequestMapping( "/{uid:(?!assets|logo).*}/admin" )
+@RequestMapping( "/{bid:(?!assets|logo).*}/admin" )
 @Auth( role = Role.ADMIN )
 public class BlogAdminController {
     @Autowired
@@ -36,46 +36,46 @@ public class BlogAdminController {
     private FileUploadService fileUploadService;
     
     @RequestMapping( value="/basic", method=RequestMethod.GET )
-    public String basic( @PathVariable( "uid" ) String userId, Model model ) {
-	BlogVO blogVo = blogService.getBlogInfo( userId );
+    public String basic( @PathVariable( "bid" ) String blogId, Model model ) {
+	BlogVO blogVo = blogService.getBlogInfo( blogId );
 	model.addAttribute( "blog", blogVo );
 	return "blog/admin/basic";
     }
     
     @RequestMapping( value="/category", method=RequestMethod.GET )
-    public String category( @PathVariable( "uid" ) String userId, Model model ) {
-	BlogVO blogVo = blogService.getBlogInfo( userId );
-	List<CategoryVO> categories = categoryService.getAllCategories( userId );
+    public String category( @PathVariable( "bid" ) String blogId, Model model ) {
+	BlogVO blogVo = blogService.getBlogInfo( blogId );
+	List<CategoryVO> categories = categoryService.getAllCategories( blogId );
 	model.addAttribute( "blog", blogVo );
 	model.addAttribute( "categories", categories);
 	return "blog/admin/category";
     }
     
     @RequestMapping( value="/write", method=RequestMethod.GET )
-    public String write( @PathVariable( "uid" ) String userId, Model model ) {
-	BlogVO blogVo = blogService.getBlogInfo( userId );
-	List<CategoryVO> categories = categoryService.getAllCategories( userId );
+    public String write( @PathVariable( "bid" ) String blogId, Model model ) {
+	BlogVO blogVo = blogService.getBlogInfo( blogId );
+	List<CategoryVO> categories = categoryService.getAllCategories( blogId );
 	model.addAttribute( "blog", blogVo );
 	model.addAttribute( "categories", categories);
 	return "blog/admin/write";
     }
     
     @RequestMapping( value="/write", method=RequestMethod.POST )
-    public String write( @PathVariable( "uid" ) String userId,
+    public String write( @PathVariable( "bid" ) String blogId,
 	    @ModelAttribute PostVO postVo ) {
 	postService.writePost(postVo);
-	return "redirect:/"+userId+"/admin/write";
+	return "redirect:/"+blogId+"/admin/write";
     }
     
     @RequestMapping( value="/basic", method=RequestMethod.POST )
-    public String update( @PathVariable( "uid" ) String userId,
+    public String update( @PathVariable( "bid" ) String blogId,
 	    @ModelAttribute BlogVO blogVo,
 	    @RequestParam( "logo-image" ) MultipartFile multipartFile) {
 	String imagePath = fileUploadService.restore( multipartFile );
-	blogVo.setUserId(userId);
+	blogVo.setUserId(blogId);
 	blogVo.setImagePath( imagePath );
 	blogService.modifyBlog(blogVo);
 	
-	return "redirect:/" + userId + "/admin/basic";
+	return "redirect:/" + blogId + "/admin/basic";
     }
 }

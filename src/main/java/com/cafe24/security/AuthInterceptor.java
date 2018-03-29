@@ -53,7 +53,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	if( authClass.role() == Role.ADMIN ){
 	    //--- The way to get from URL path(Using PathVariable)
 	    Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-	    String blogId = (String)pathVariables.get( "uid" );
+	    String blogId = (String)pathVariables.get( "bid" );
 	    //--- The way to parse to url
 	    // String requestUrl = request.getRequestURI();
 	    // String blogId = requestUrl.substring(requestUrl.lastIndexOf("/")+1, requestUrl.length());

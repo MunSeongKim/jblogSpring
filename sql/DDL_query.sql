@@ -201,3 +201,15 @@ SELECT no, category_no, title, body, reg_date
  WHERE category_no IN (SELECT no
 						 FROM category
 						WHERE user_id = 'hong');
+                        
+                        
+SELECT no,
+	   category_no as categoryNo,
+	   title,
+	   body,
+	   DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+  FROM post, category
+ WHERE post.category_no = category.no
+   AND post.category_no = 16
+   AND category.user_id = 'hong'
+ORDER BY no DESC;
