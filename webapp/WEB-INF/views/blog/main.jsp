@@ -20,6 +20,7 @@
 						${post.body }
 					<p>
 				</div>
+				<hr />
 				<ul class="blog-list">
 					<c:forEach items="${posts }" var="post" varStatus="status" >
 					<li>
@@ -48,8 +49,6 @@
 						</c:choose>
 						</li>
 						</c:if>
-						<c:out value="${pager.currentPageNumber }" />
-						<c:out value="${pager.totalPageCount }" />
 						<c:forEach begin='0' end='${ pager.pageCount -1 }' var='i' step='1'>
 							<c:choose>
 								<c:when test="${not empty categoryNo }">
