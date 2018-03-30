@@ -3,9 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<a href="${pageContext.servletContext.contextPath }">
-	<h1	class="logo">JBlog</h1>
-</a>
+
+<h1	class="logo"><a href="${pageContext.servletContext.contextPath }">JBlog</a></h1>
 
 <ul class="menu">
 	<c:choose>

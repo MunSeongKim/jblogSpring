@@ -35,72 +35,7 @@
 					</li>
 					</c:forEach>
 				</ul>
-				<div class="pager">
-					<ul>
-						<c:if test='${ pager.leftNavigator }'>
-						<li>
-						<c:choose>
-							<c:when test="${not empty categoryNo }">
-								<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${pager.startPageNumber-1 }/${post.no}">◀</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${pager.startPageNumber-1 }/${post.no}">◀</a>
-							</c:otherwise>
-						</c:choose>
-						</li>
-						</c:if>
-						<c:forEach begin='0' end='${ pager.pageCount -1 }' var='i' step='1'>
-							<c:choose>
-								<c:when test="${not empty categoryNo }">
-									<c:choose>
-									<c:when test='${ (pager.startPageNumber + i) gt pager.totalPageCount }'>
-										<li>${ pager.startPageNumber + i }</li>
-									</c:when>
-									<c:when test='${ (pager.startPageNumber + i) eq pager.currentPageNumber }'>
-										<li class="selected">		
-										<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${pager.startPageNumber+i }/${post.no}">${ pager.startPageNumber + i }</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li>
-										<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${pager.startPageNumber+i }/${post.no}">${ pager.startPageNumber + i }</a>
-										</li>
-									</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-									<c:when test='${ (pager.startPageNumber + i) gt pager.totalPageCount }'>
-										<li>${ pager.startPageNumber + i }</li>
-									</c:when>
-									<c:when test='${ (pager.startPageNumber + i) eq pager.currentPageNumber }'>
-										<li class="selected">		
-										<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${pager.startPageNumber+i }/${post.no}">${ pager.startPageNumber + i }</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li>
-										<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${pager.startPageNumber+i }/${post.no}">${ pager.startPageNumber + i }</a>
-										</li>
-									</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if test='${ pager.rightNavigator }'>
-						<li>
-						<c:choose>
-							<c:when test="${not empty categoryNo }">
-								<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${pager.endPageNumber-1 }/${post.no}">▶</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${pager.endPageNumber-1 }/${post.no}">▶</a>
-							</c:otherwise>
-						</c:choose>
-						</li>
-						</c:if>
-					</ul>
-				</div>
+				<c:import url="/WEB-INF/views/pager/pagination.jsp" />
 			</div>
 		</div>
 

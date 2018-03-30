@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.jblog.vo.PostVO;
+import com.cafe24.pager.Numerable;
 
 @Repository
-public class PostRepository {
+public class PostRepository implements Numerable {
     @Autowired
     private SqlSession sqlSession;
         
@@ -42,8 +43,10 @@ public class PostRepository {
 	return sqlSession.selectOne( "post.selectAtAllByCategory", map );
     }
     
+    @Override
     public int readCount( Map<?, ?> map ){
 	return sqlSession.selectOne( "post.selectCount", map );
     }
+
 
 }

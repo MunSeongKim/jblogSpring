@@ -1,18 +1,8 @@
-package com.cafe24.jblog.component;
+package com.cafe24.pager;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.cafe24.jblog.repository.PostRepository;
-
-@Component
 public class Pager {
-    @Autowired
-    private PostRepository postRepository;
-    
     /**
      *   startPageNumber - 한 화면의 시작 페이지 번호
      *     endPageNumber - 한 화면의 끝 페이지 번호
@@ -33,6 +23,8 @@ public class Pager {
     private int pageCount;
     private int totalPageCount;
     private int currentPageNumber;
+    private int startLimitIndex;
+    private Numerable numerable;
 
     public Pager() {
 	this.startPageNumber = 1;
@@ -124,19 +116,32 @@ public class Pager {
 	this.currentPageNumber = currentPageNumber;
     }
 
+    public int getStartLimitIndex() {
+        return startLimitIndex;
+    }
+
+    public void setStartLimitIndex( int startLimitIndex ) {
+        this.startLimitIndex = startLimitIndex;
+    }
+    
+    public Numerable getNumerable() {
+        return numerable;
+    }
+
+    public void setNumerable( Numerable numerable ) {
+        this.numerable = numerable;
+    }
+
     @Override
     public String toString() {
 	return "Pager [startPageNumber=" + startPageNumber + ", endPageNumber=" + endPageNumber + ", leftNavigator="
 		+ leftNavigator + ", rightNavigator=" + rightNavigator + ", startPostNumber=" + startPostNumber
 		+ ", postCount=" + postCount + ", pageCount=" + pageCount + ", totalPageCount=" + totalPageCount
-		+ ", currentPageNumber=" + currentPageNumber + "]";
+		+ ", currentPageNumber=" + currentPageNumber + ", startLimitIndex=" + startLimitIndex + "]";
     }
     
-    public void setPager(int pageNo, String userId, Long categoryNo) {
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("userId", userId);
-	map.put("categoryNo", categoryNo);
-	int count = postRepository.readCount( map );
+    public void setPager(int pageNo, Map<?, ?> data) {
+	int count = numerable.readCount( data );
 	int diff = ((pageNo - 1) % pageCount);
 	
 	// 시작, 끝, 현재 페이지 번호 설정
@@ -153,6 +158,8 @@ public class Pager {
 	} else {
 	    this.totalPageCount = (count / postCount) + 1;
 	}
+	
+	this.startLimitIndex = (this.currentPageNumber - 1) * postCount;
 	
 	// 좌, 우 네비게이터 화면 표시 설정
 	this.leftNavigator = false;

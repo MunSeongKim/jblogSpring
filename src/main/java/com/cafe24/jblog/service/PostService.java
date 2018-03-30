@@ -7,22 +7,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.jblog.component.Pager;
 import com.cafe24.jblog.repository.PostRepository;
 import com.cafe24.jblog.vo.PostVO;
+import com.cafe24.pager.Pager;
 
 @Service
 public class PostService {
     @Autowired
     private PostRepository postRepository;
-
-    public List<PostVO> getAllPosts( String id, Long pageNo, Long categoryNo, Pager pager ) {
+    
+    public List<PostVO> getAllPosts( String id, Long categoryNo, Pager pager ) {
 	Map<String, Object> map = new HashMap<String, Object>();
-	int start = (pager.getCurrentPageNumber() - 1) * pager.getPostCount();
-	int count = pager.getPostCount();
-	
-	map.put("start", start);
-	map.put("count", count);
+	map.put("start", pager.getStartLimitIndex());
+	map.put("count", pager.getPostCount());
 	if( categoryNo != null ) {
 	    map.put("no", categoryNo);
 	    return postRepository.readAllByCategory( map );
