@@ -2,6 +2,7 @@ package com.cafe24.jblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.jblog.repository.BlogRepository;
 import com.cafe24.jblog.repository.CategoryRepository;
@@ -18,7 +19,8 @@ public class UserService {
     private BlogRepository blogRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-        
+    
+    @Transactional
     public void join( UserVO vo ) {
 	if ( userRepository.create( vo ) ){
 	    BlogVO blogVo = new BlogVO();
