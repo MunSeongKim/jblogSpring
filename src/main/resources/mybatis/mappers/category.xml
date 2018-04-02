@@ -54,5 +54,14 @@
 		   AND no = #{no}
 		]]>		
 	</delete>
+	
+	<update id="updateByNo"
+			parameterType="long">
+		<![CDATA[
+		UPDATE category
+		   SET post_count = post_count + 1
+		 WHERE no = #{no}
+		]]>
+	</update>
 			
 </mapper>

@@ -24,6 +24,10 @@ public class CategoryService {
     }
 
     public boolean remove( CategoryVO vo ) {
-	return categoryRepository.delete(vo);
+	return categoryRepository.delete( vo );
+    }
+
+    public boolean updatePostCount( Long no ) {
+	return categoryRepository.update( no );
     }
 }

@@ -12,6 +12,8 @@ public class Pager {
      *         pageCount - 한 화면의 출력할 페이지 개수
      *    totalPageCount - 전체 게시글의 개수
      * currentPageNumber - 현재 페이지 번호
+     *   startLimitIndex - SELECT Query의 LIMIT 시작 번호
+     *         numerable - readCount()를 구현한 Repository 객체
      */
 
     private int startPageNumber;
@@ -124,10 +126,6 @@ public class Pager {
         this.startLimitIndex = startLimitIndex;
     }
     
-    public Numerable getNumerable() {
-        return numerable;
-    }
-
     public void setNumerable( Numerable numerable ) {
         this.numerable = numerable;
     }
@@ -159,6 +157,7 @@ public class Pager {
 	    this.totalPageCount = (count / postCount) + 1;
 	}
 	
+	// Query에 사용할 LIMIT 시작 번호
 	this.startLimitIndex = (this.currentPageNumber - 1) * postCount;
 	
 	// 좌, 우 네비게이터 화면 표시 설정

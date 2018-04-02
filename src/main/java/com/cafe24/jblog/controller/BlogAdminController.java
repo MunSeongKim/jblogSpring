@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,12 @@ public class BlogAdminController {
     @Autowired
     private FileUploadService fileUploadService;
     
+    /**
+     * 블로그에 접속하였을때, 메인화면 출력
+     * @param blogId : 블로그 개설자의 ID
+     * @param model : 메인화면 출력 값
+     * @return Forwarding: /blog/admin/basic.jsp
+     */
     @RequestMapping( value="/basic", method=RequestMethod.GET )
     public String basic( @PathVariable( "bid" ) String blogId, Model model ) {
 	BlogVO blogVo = blogService.getBlogInfo( blogId );
@@ -60,10 +67,12 @@ public class BlogAdminController {
 	return "blog/admin/write";
     }
     
+    @Transactional
     @RequestMapping( value="/write", method=RequestMethod.POST )
     public String write( @PathVariable( "bid" ) String blogId,
 	    @ModelAttribute PostVO postVo ) {
 	postService.writePost(postVo);
+	categoryService.updatePostCount(postVo.getCategoryNo());
 	return "redirect:/"+blogId+"/admin/write";
     }
     

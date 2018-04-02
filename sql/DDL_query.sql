@@ -167,6 +167,10 @@ SELECT * FROM user;
 SELECT * FROM blog;
 SELECT * FROM category;
 
+UPDATE category
+		   SET post_count = post_count + 1
+		 WHERE no = #{no}
+
 INSERT INTO user
 	   VALUES('dooly@a.com', '둘리', PASSWORD(123), now());
 
@@ -208,8 +212,12 @@ SELECT no,
 	   title,
 	   body,
 	   DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as regDate
+  FROM post
+ WHERE post.category_no = 16
+ORDER BY no DESC;
+
+SELECT COUNT(*)
   FROM post, category
  WHERE post.category_no = category.no
-   AND post.category_no = 16
    AND category.user_id = 'hong'
-ORDER BY no DESC;
+   AND post.category_no = 1;

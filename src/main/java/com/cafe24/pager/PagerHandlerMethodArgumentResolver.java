@@ -1,7 +1,6 @@
 package com.cafe24.pager;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebArgumentResolver;
@@ -12,8 +11,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.cafe24.jblog.vo.UserVO;
-
 public class PagerHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
@@ -23,10 +20,14 @@ public class PagerHandlerMethodArgumentResolver implements HandlerMethodArgument
 	    return WebArgumentResolver.UNRESOLVED;
 	}
 	
+	// Request 객체 획득
 	HttpServletRequest request = webRequest.getNativeRequest( HttpServletRequest.class );
+	// WebApplicationContext 획득
 	WebApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext( request.getServletContext() );
+	// Numerable 구현 객체 획득
 	Numerable numerable = ac.getBean( Numerable.class);
 	Pager pager = new Pager();
+	// pager에 numerable 삽입
 	pager.setNumerable(numerable);
 
 	return pager;
