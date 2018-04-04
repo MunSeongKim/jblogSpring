@@ -1,5 +1,7 @@
 package com.cafe24.jblog.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,9 +20,13 @@ public class BlogRepository {
     public BlogVO read( String id ) {
 	BlogVO result = sqlSession.selectOne( "blog.selectById", id );
 	if( result == null ){
-	    throw new RuntimeException("유효하지 않은 접근입니다.");
+	    throw new RuntimeException("해당 블로그는 없습니다.");
 	}
 	return result;
+    }
+    
+    public List<BlogVO> readByKeyword(String keyword){
+	return sqlSession.selectList( "blog.selectAll", keyword);
     }
 
     public boolean update( BlogVO vo ) {

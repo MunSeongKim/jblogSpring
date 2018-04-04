@@ -24,7 +24,7 @@ import com.cafe24.security.Auth;
 
 @Controller
 @RequestMapping( "/{uid:(?!assets|logo).*}" )
-@Auth
+//@Auth
 public class BlogController {
     @Autowired
     private BlogService blogService;

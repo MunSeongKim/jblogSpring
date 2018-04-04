@@ -19,6 +19,15 @@
 		]]>
 	</select>
 	
+	<select id="selectAll"
+			parameterType="String"
+			resultType="blogvo">
+	    <![CDATA[
+		SELECT user_id as userId, title, image as imagePath
+		  FROM blog
+		]]>
+	</select>
+	
 	<update id="update"
 			parameterType="blogvo">
 		<choose>

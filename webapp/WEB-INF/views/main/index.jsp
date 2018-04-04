@@ -18,11 +18,30 @@
 				<input type="submit" value="검색" />
 			</fieldset>
 			<fieldset>
-				<input type="radio" name="which" value="blog-title" checked> <label>블로그 제목</label>
+				<input type="radio" name="which" value="title" checked> <label>블로그 제목</label>
 				<input type="radio" name="which" value="tag"> <label>태그</label>
-				<input type="radio" name="which" value="blog-user"> <label>블로거</label>
+				<input type="radio" name="which" value="user"> <label>블로거</label>
 			</fieldset>
 		</form>
+		<div id="list">
+			<c:if test="${not empty blogs }">
+			<hr />
+			</c:if>
+			<ul id="list-guestbook">
+				<c:forEach items="${ blogs }" var="blog" varStatus="status">
+				<a href="${pageContext.request.contextPath}/${blog.userId }">
+				<li style="background-image: url('${pageContext.request.contextPath}/${blog.imagePath }');">
+					<div class="list-header">
+						<strong>${ blog.userId }</strong> <p class="date">RegDate</p>
+					</div>
+					<p class="content">
+						${blog.title }
+					</p>
+				</li>
+				</a>
+				</c:forEach>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

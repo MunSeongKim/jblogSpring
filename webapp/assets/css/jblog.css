@@ -1,6 +1,7 @@
 
 /* reset */
 *				{ margin:0; padding:0 }
+* 				{ -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
 body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; color:#111 }
 ul, ol			{ list-style-type: none }
 fieldset		{ border:none }
@@ -17,7 +18,6 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 .center-content .logo							{ width:163px; height:104px; background:url(/jblog/assets/images/logo.jpg) 0 0 no-repeat; margin:20px auto; text-indent:-100000px; font-size:0 }
 .center-content .menu							{ text-align:center; height:20px; margin:0 auto }
 .center-content .menu li						{ display:inline; padding-left:20px }
-.center-content .menu li:first-child			{ margin!-left:70px }
 .center-content .menu li a						{ font-size:1.2em }
 
 .center-content form,
@@ -25,7 +25,9 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 .center-content .search-form 						{ width:100%; }
 .center-content .search-form input[name='keyword']	{ width:350px; border:3px solid #3879D9; padding:5px }
 .center-content .search-form fieldset				{ margin:10px 0}
+.center-content .search-form input					{ vertical-align: middle; }
 .center-content .search-form input[name='which']	{ display:inline-block; margin-left:10px;}
+.center-content .search-form input[type='submit']	{ padding: 6px; background-color: #3879D9; color: #FFF; font-weight: bold; border: 0px solid #FFF; }
 
 .login-form										{ width:250px; padding:10px; border:1px solid #bbb;	}
 .login-form input, .login-form label			{ display:block }
@@ -137,6 +139,17 @@ div#extra .blog-logo img	{ width: 100%; }
 /* footer */
 div#footer		{ background:#F0F0F0; color:#666 }
 div#footer p	{ text-align:center; margin:0; padding:8px 10px }
+
+
+/* search list */
+ul#list-guestbook							{ width: 100%; }
+ul#list-guestbook li						{ margin: 10px 5px; padding: 5px 5px 5px 90px; background-size: 80px 80px; background-position: 5px 5px; background-repeat: no-repeat; border: 1px solid #ddd; border-radius: 4px; }
+ul#list-guestbook li:hover					{ box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5); }
+ul#list-guestbook li div.list-header		{ margin: 5px 0; }
+ul#list-guestbook li div.list-header:after	{ content: ""; display: block; clear: both;}
+ul#list-guestbook li strong					{ display: block; margin-left: 5px; margin-bottom: 5px; color: #666; float: left; font-size: 1.2em; vertical-align: bottom; }
+ul#list-guestbook li p.date					{ float: right; font-size: 1em; vertical-align: bottom; }
+ul#list-guestbook li p.content				{ padding: 10px; background-color: #FAFAFA; border: 1px solid #EEEFEF; border-radius: 5px; clear: both; text-align: left; font-size: 1.5em;}
 
 
 

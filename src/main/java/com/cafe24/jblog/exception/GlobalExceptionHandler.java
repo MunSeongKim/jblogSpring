@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 	}
 
 	// 2. Apologize
-	response.getWriter().print(e.getMessage());
+	request.setAttribute( "errorMsg", e.getMessage() );
 	request.setAttribute( "beforeUrl", request.getHeader("referer") );
 	request.getRequestDispatcher( "/WEB-INF/views/error/error.jsp" ).forward( request, response );
     }
