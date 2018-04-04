@@ -28,7 +28,7 @@ public class PostService {
 	return postRepository.readAll( map );
     }
 
-    public PostVO getPost( String id, Long pageNo, Long categoryNo, Long postNo ) {
+    public PostVO getPost( String id, Integer pageNo, Long categoryNo, Long postNo ) {
 	Map<String, Object> map = new HashMap<String, Object>();
 	// 처음 블로그 접속
 	if( postNo == null ) {
@@ -44,10 +44,9 @@ public class PostService {
 	}
 	
 	// 카테고리 선택 -> 카테고리 별 첫 화면
-	if ( postNo == 0L ) {
+	if ( postNo == 0 ) {
 	    map.put( "userId", id );
 	    map.put( "categoryNo", categoryNo );
-	    map.put( "pageNo", pageNo);
 	    return postRepository.readAtLastByCategory( map );
 	}
 

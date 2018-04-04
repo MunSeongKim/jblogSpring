@@ -15,10 +15,20 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${post.title }</h4>
-					<p>
-						${post.body }
-					<p>
+					<c:choose>
+						<c:when test="${not empty post }">
+							<h4>${post.title }</h4>
+							<p>
+								${post.body }
+							<p>
+						</c:when>
+						<c:otherwise>
+							<h4>포스트가 없습니다.</h4>
+							<p>
+								작성 된 포스트가 없습니다.
+							<p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<hr />
 				<ul class="blog-list">
@@ -26,10 +36,10 @@
 					<li>
 					<c:choose>
 					<c:when test="${not empty categoryNo }">
-					<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${pager.currentPageNumber }/${post.no}">${post.title }</a> <span>${post.regDate }</span>
+					<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${categoryNo }/${post.no}?p=${pager.currentPageNumber }">${post.title }</a> <span>${post.regDate }</span>
 					</c:when>
 					<c:otherwise>
-					<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${pager.currentPageNumber }/${post.no}">${post.title }</a> <span>${post.regDate }</span>
+					<a href="${pageContext.servletContext.contextPath }/${blog.userId }/${post.no}?p=${pager.currentPageNumber }">${post.title }</a> <span>${post.regDate }</span>
 					</c:otherwise>
 					</c:choose>
 					</li>

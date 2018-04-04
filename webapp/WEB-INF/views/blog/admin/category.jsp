@@ -11,6 +11,37 @@
 	<Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 	<script src="${ pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 <script>
+var addClickEvent = function(obj) {
+	var categoryNo = $(obj).attr("id");
+	var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
+	var removeTarget = $(event.target).parent().parent();
+
+	$.ajax({
+		url: '${ pageContext.servletContext.contextPath }/${blog.userId}/api/blog/category',
+		type: 'DELETE',
+		data: category,
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function( response, status, xhr ) {
+			console.log(response);
+			if( response.result == "success" ){
+				// Remove in category table
+				removeTarget.remove();
+				var rows = $('.admin-cat tr')
+				for(var i = 1; i < rows.size(); i++){
+					$(rows[i]).children().first().text(i);		
+				}
+				return ;
+			}
+			
+			console.log("[" + response.result + "]: " + response.message);
+		},
+		error: function( e, status, xhr ) {
+			console.error("[" + status + "] " + e);
+		}
+	});
+}
+
 $(function() {
 	$('#btn-addCategory').click(function(){
 		var name = $('#category-name').val();
@@ -35,7 +66,8 @@ $(function() {
 							 + "<td>" + category.description + "</td>"
 							 + "<td><img class='btn-delete' id='" + category.no + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg' /></td>"
 							 + "</tr>" );
-					$('.admin-cat tr').on('click', '#'+category.no, function() {
+					$('.admin-cat tr').on('click', '#'+category.no, addClickEvent(this));
+							/*function() {
 						var categoryNo = $(this).attr("id");
 						var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
 						var removeTarget = $(event.target).parent().parent();
@@ -64,7 +96,7 @@ $(function() {
 								console.error("[" + status + "] " + e);
 							}
 						});
-					});
+					});*/
 					$('#category-name').val("");
 					$('#category-desc').val("");
 					return ;

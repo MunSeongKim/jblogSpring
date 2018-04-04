@@ -8,7 +8,7 @@
 	<ul>
 		<li><a href="${pageContext.servletContext.contextPath }/${blog.userId}">전체</a>
 		<c:forEach items="${ categories }" var="category" varStatus="status">
-			<li><a href="${pageContext.servletContext.contextPath }/${blog.userId }/${category.no}/1/0">${category.name }</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/${blog.userId }/${category.no}/0?p=1">${category.name }</a></li>
 		</c:forEach>
 	</ul>
 </div>

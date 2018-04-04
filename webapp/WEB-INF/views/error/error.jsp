@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Oops! Sorry:(</h1>
+	<a href="${beforeUrl }"> 이전 페이지로 돌아가기 </a> 
 </body>
 </html>

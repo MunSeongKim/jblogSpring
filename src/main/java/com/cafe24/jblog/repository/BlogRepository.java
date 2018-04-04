@@ -16,7 +16,11 @@ public class BlogRepository {
     }
 
     public BlogVO read( String id ) {
-	return sqlSession.selectOne( "blog.selectById", id );
+	BlogVO result = sqlSession.selectOne( "blog.selectById", id );
+	if( result == null ){
+	    throw new RuntimeException("유효하지 않은 접근입니다.");
+	}
+	return result;
     }
 
     public boolean update( BlogVO vo ) {

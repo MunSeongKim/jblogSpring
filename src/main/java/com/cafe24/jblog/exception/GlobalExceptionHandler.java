@@ -29,7 +29,6 @@ public class GlobalExceptionHandler {
 	e.printStackTrace( new PrintWriter( errors ) );
 	LOG.error(e.getMessage());
 //	LOG.warn(errors.toString());
-
 	e.printStackTrace();
 	
 	String accept = request.getHeader( "accept" );
@@ -42,7 +41,10 @@ public class GlobalExceptionHandler {
 	    response.getWriter().print( json );
 	    return;
 	}
+
 	// 2. Apologize
+	response.getWriter().print(e.getMessage());
+	request.setAttribute( "beforeUrl", request.getHeader("referer") );
 	request.getRequestDispatcher( "/WEB-INF/views/error/error.jsp" ).forward( request, response );
     }
 }
