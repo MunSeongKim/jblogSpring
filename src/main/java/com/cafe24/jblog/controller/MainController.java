@@ -1,6 +1,7 @@
 package com.cafe24.jblog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.jblog.service.BlogService;
-import com.cafe24.jblog.vo.BlogVO;
 
 @Controller
 public class MainController {
@@ -17,9 +17,17 @@ public class MainController {
     private BlogService blogService;
 
     @RequestMapping( { "", "/" } )
-    public String main( @RequestParam( value = "k", required = false ) String keyword, Model model ) {
-	List<BlogVO> blogs = blogService.getBlogs( keyword );
+    public String main(
+	    @RequestParam( value = "k", required = false ) String keyword,
+	    @RequestParam( value = "t", required = false ) String type,
+	    Model model ) {
 	
+	
+	if( keyword == null && type == null ) {
+	    return "main/index";
+	}
+	
+	List<Map<String, Object>> blogs = blogService.getBlogs( keyword, type );
 	model.addAttribute( "blogs", blogs );
 	return "main/index";
     }

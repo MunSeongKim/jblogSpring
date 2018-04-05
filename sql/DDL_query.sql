@@ -169,7 +169,7 @@ SELECT * FROM category;
 
 UPDATE category
 		   SET post_count = post_count + 1
-		 WHERE no = #{no}
+		 WHERE no = 1;
 
 INSERT INTO user
 	   VALUES('dooly@a.com', '둘리', PASSWORD(123), now());
@@ -221,3 +221,14 @@ SELECT COUNT(*)
  WHERE post.category_no = category.no
    AND category.user_id = 'hong'
    AND post.category_no = 1;
+   
+   
+SELECT user_id as userId, title, image as imagePath, DATE_FORMAT(user.reg_date, '%Y-%m-%d') as regDate
+  FROM blog, user
+ WHERE blog.user_id = user.id
+   AND blog.title LIKE '%블로그%';
+   
+SELECT user_id as userId, title, image as imagePath, DATE_FORMAT(user.reg_date, '%Y-%m-%d') as regDate
+  FROM blog, user
+ WHERE blog.user_id = user.id
+   AND blog.user_id LIKE '%a%';

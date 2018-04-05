@@ -20,7 +20,6 @@ import com.cafe24.jblog.vo.CategoryVO;
 import com.cafe24.jblog.vo.PostVO;
 import com.cafe24.pager.Page;
 import com.cafe24.pager.Pager;
-import com.cafe24.security.Auth;
 
 @Controller
 @RequestMapping( "/{uid:(?!assets|logo).*}" )
@@ -65,7 +64,6 @@ public class BlogController {
 	model.addAttribute( "post", post );
 	model.addAttribute( "categoryNo", categoryNo );
 	model.addAttribute( "pager", pager );
-
 	return "blog/main";
     }
 

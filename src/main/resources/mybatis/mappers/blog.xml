@@ -8,28 +8,38 @@
 		       VALUES(#{userId}, #{title}, #{imagePath})
 		]]>
 	</insert>
-	
-	<select id="selectById"
-			parameterType="String"
-			resultType="blogvo">
+
+	<select id="selectById" parameterType="String" resultType="blogvo">
 	    <![CDATA[
 		SELECT user_id as userId, title, image as imagePath
 		  FROM blog
 		 WHERE user_id=#{id}
 		]]>
 	</select>
-	
-	<select id="selectAll"
-			parameterType="String"
-			resultType="blogvo">
+
+	<select id="selectAll" parameterType="map" resultType="map">
 	    <![CDATA[
-		SELECT user_id as userId, title, image as imagePath
-		  FROM blog
+		SELECT user_id as userId, title, image as imagePath, DATE_FORMAT(user.reg_date, '%Y-%m-%d') as regDate
+		  FROM blog, user
+		 WHERE blog.user_id = user.id
 		]]>
+		<if test='keyword != ""'>
+			<choose>
+				<when test="type == 'title'">
+				<![CDATA[
+					AND blog.title LIKE '%${keyword}%'
+				]]>
+				</when>
+				<when test="type == 'id'">
+				<![CDATA[
+					AND blog.user_id LIKE '%${keyword}%'
+				]]>
+				</when>
+			</choose>
+		</if>
 	</select>
-	
-	<update id="update"
-			parameterType="blogvo">
+
+	<update id="update" parameterType="blogvo">
 		<choose>
 			<when test='imagePath == ""'>
 				<![CDATA[

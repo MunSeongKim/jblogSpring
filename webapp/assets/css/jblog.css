@@ -5,7 +5,6 @@
 body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; color:#111 }
 ul, ol			{ list-style-type: none }
 fieldset		{ border:none }
-
 a:link 			{ color:#696969; text-decoration:none; font-weight:bold; }
 a:visited 		{ color:#696969F; text-decoration:none; font-weight:bold; }
 a:active 		{ color:#696969; text-decoration:none; font-weight:bold; }
@@ -23,10 +22,10 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 .center-content form,
 .center-content .welcome-message					{ clear:both; margin:15px auto 25px auto; }
 .center-content .search-form 						{ width:100%; }
-.center-content .search-form input[name='keyword']	{ width:350px; border:3px solid #3879D9; padding:5px }
+.center-content .search-form input[name='k']		{ width:350px; border:3px solid #3879D9; padding:5px }
 .center-content .search-form fieldset				{ margin:10px 0}
 .center-content .search-form input					{ vertical-align: middle; }
-.center-content .search-form input[name='which']	{ display:inline-block; margin-left:10px;}
+.center-content .search-form input[name='t']		{ display:inline-block; margin-left:10px;}
 .center-content .search-form input[type='submit']	{ padding: 6px; background-color: #3879D9; color: #FFF; font-weight: bold; border: 0px solid #FFF; }
 
 .login-form										{ width:250px; padding:10px; border:1px solid #bbb;	}
@@ -73,7 +72,8 @@ div#container		{ text-align:left }
 
 
 /* content */
-div#content	.blog-content	{ padding:10px }
+div#content hr	{ border: 0.8px solid #5394CC; }
+div#content	.blog-content		{ padding:10px }
 .blog-content h4			{ font-size:1.3em; color:#9D96D0 }
 .blog-content p				{ margin-top:10px; line-height:150% }
 div#content .blog-list		{ margin:20px 0 10px 10px }
@@ -142,14 +142,15 @@ div#footer p	{ text-align:center; margin:0; padding:8px 10px }
 
 
 /* search list */
-ul#list-guestbook							{ width: 100%; }
-ul#list-guestbook li						{ margin: 10px 5px; padding: 5px 5px 5px 90px; background-size: 80px 80px; background-position: 5px 5px; background-repeat: no-repeat; border: 1px solid #ddd; border-radius: 4px; }
-ul#list-guestbook li:hover					{ box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5); }
-ul#list-guestbook li div.list-header		{ margin: 5px 0; }
-ul#list-guestbook li div.list-header:after	{ content: ""; display: block; clear: both;}
-ul#list-guestbook li strong					{ display: block; margin-left: 5px; margin-bottom: 5px; color: #666; float: left; font-size: 1.2em; vertical-align: bottom; }
-ul#list-guestbook li p.date					{ float: right; font-size: 1em; vertical-align: bottom; }
-ul#list-guestbook li p.content				{ padding: 10px; background-color: #FAFAFA; border: 1px solid #EEEFEF; border-radius: 5px; clear: both; text-align: left; font-size: 1.5em;}
+div#list hr								{ border-color: #3879D9; }
+ul#search-list							{ width: 100%; }
+ul#search-list li						{ margin: 10px 5px; padding: 5px 5px 5px 90px; background-size: 80px 80px; background-position: 5px 5px; background-repeat: no-repeat; border: 1px solid #3879D9; border-radius: 4px; }
+ul#search-list li:hover					{ box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5); }
+ul#search-list li div.list-header		{ margin: 5px 0; }
+ul#search-list li div.list-header:after	{ content: ""; display: block; clear: both;}
+ul#search-list li strong					{ display: block; margin-left: 5px; margin-bottom: 5px; color: #666; float: left; font-size: 1.2em; vertical-align: bottom; }
+ul#search-list li p.date					{ float: right; font-size: 1em; vertical-align: bottom; }
+ul#search-list li p.content				{ padding: 10px; background-color: #FAFAFA; border: 1px solid #EEEFEF; border-radius: 5px; clear: both; text-align: left; font-size: 1.5em;}
 
 
 

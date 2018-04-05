@@ -1,6 +1,7 @@
 package com.cafe24.jblog.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class BlogRepository {
 	return result;
     }
     
-    public List<BlogVO> readByKeyword(String keyword){
-	return sqlSession.selectList( "blog.selectAll", keyword);
+    public List<Map<String, Object>> readByKeyword(Map<?, ?> map){
+	return sqlSession.selectList( "blog.selectAll", map);
     }
 
     public boolean update( BlogVO vo ) {

@@ -51,7 +51,7 @@ $(function() {
 		}
 	});
 	
-	$('#btn-join').click(function() {
+	$('#join-form').submit(function() {
 		if( $('#name').val() == "" || $('#blog-id').val() == "" ||
 		    $('#password').val() == "" ) {
 			alert("빈 항목이 있습니다.");
