@@ -11,8 +11,12 @@
 	<Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 	<script src="${ pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 <script>
-$(function() {
-	$('#btn-addCategory').click(function(){
+var CategoryManager = {
+	init: function() {
+		$('#btn-addCategory').click(this.__onAddCategoryClicked);
+		$('.btn-delete').click(this.__onDelCategoryClicked);
+	},
+	__onAddCategoryClicked: function() {
 		var name = $('#category-name').val();
 		var desc = $('#category-desc').val();
 		var category = JSON.stringify({ 'name': name, 'description': desc, 'userId': "${blog.userId}" });
@@ -26,60 +30,29 @@ $(function() {
 			success: function( response, status, xhr ) {
 				if( response.result == "success" ){
 					var category = response.data;
-					var lastRow = $('.admin-cat tr:last')
+					var table = $('.admin-cat')
 					var index = $('.admin-cat tr').size();
-					lastRow.after("<tr>"
+					table.append("<tr>"
 							 + "<td>" + index + "</td>"
 							 + "<td>" + category.name + "</td>"
 							 + "<td>" + category.postCount + "</td>"
 							 + "<td>" + category.description + "</td>"
-							 + "<td><img class='btn-delete' id='" + category.no + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg' /></td>"
+							 + "<td><img class='btn-delete' id='cate-"+ category.no +"' data-no='" + category.no + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg' /></td>"
 							 + "</tr>" );
-					$('.admin-cat tr td').on('click', category.no, function() {
-						var categoryNo = $(event.target).attr('id');
-						console.log(categoryNo);
-						var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
-						var removeTarget = $(event.target).closest("tr");
-
-						$.ajax({
-							url: '${ pageContext.servletContext.contextPath }/${blog.userId}/api/blog/category',
-							type: 'DELETE',
-							data: category,
-							contentType: 'application/json; charset=utf-8',
-							dataType: 'json',
-							success: function( response, status, xhr ) {
-								if( response.result == "success" ){
-									// Remove in category table
-									removeTarget.remove();
-									var rows = $('.admin-cat tr')
-									for(var i = 1; i < rows.size(); i++){
-										$(rows[i]).children().first().text(i);		
-									}
-									return ;
-								}
-								
-								console.log("[" + response.result + "]: " + response.message);
-							},
-							error: function( e, status, xhr ) {
-								console.error("[" + status + "] " + e);
-							}
-						});
-					});
+					$('.admin-cat').on('click', "cate-"+category.no, CategoryManager.__onDelCategoryClicked);
 					$('#category-name').val("");
 					$('#category-desc').val("");
 					return ;
 				}
-				
-				console.error("[" + response.result + "]: " + response.message);
+				console.log("[" + response.result + "]: " + response.message);
 			},
 			error: function( e, status, xhr ) {
 				console.error("[" + status + "] " + e);
 			}
-		});	
-	});
-	
-	$('.btn-delete').click(function() {
-		var categoryNo = $(event.target).attr("id");
+		});
+	},
+	__onDelCategoryClicked: function() {
+		var categoryNo = $(event.target).data("no");
 		var category = JSON.stringify({ 'no': categoryNo, 'userId': "${blog.userId}" });
 		var removeTarget = $(event.target).closest("tr");
 
@@ -107,11 +80,12 @@ $(function() {
 				console.error("[" + status + "] " + e);
 			}
 		});
-	});
-	
+	}
+};
+
+$(function() {
+	CategoryManager.init();	
 });
-
-
 </script>
 </head>
 <body>
@@ -138,7 +112,7 @@ $(function() {
 							<td>${category.description }</td>
 							<td>
 							<c:if test="${status.index ne 0 }">
-								<img class="btn-delete" id="${category.no }" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+								<img class="btn-delete" id="cate-${category.no}" data-no="${category.no }" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
 							</c:if>
 							</td>
 						</tr>
